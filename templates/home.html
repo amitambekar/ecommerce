@@ -1,0 +1,42 @@
+{% include 'header.html' %}
+<script>
+    window.products_list = {{products_list | tojson}};
+</script>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Color</th>
+                    <th>Size</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for row in products_list%}                  
+                    <tr product-id="{{row['product_id']}}">
+                        <td>{{row['name']}}</td>
+                        <td>{{row['color']}}</td>
+                        <td>{{row['size']}}</td>
+                        <td>{{row['price']}}</td>
+                        <td>0</td>
+                        <td><button type="button" class="btn btn-sm btn-success flat margin-5" onclick="addProductToCard({{row['product_id']}})">+</button><span>0</span><button type="button" class="btn btn-sm btn-danger flat margin-5" onclick="removeProductToCart({{row['product_id']}},false)">-</button></td>
+                    </tr>
+                {%endfor%}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><b>Grand Total</b></td>
+                    <td><b id="grand_total"></b></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/checkout" id="checkout"><button class="btn btn-primary btn-md">Proceed to Checkout</button></a>
+    </div>
+</div>
+{% include 'footer.html' %}
